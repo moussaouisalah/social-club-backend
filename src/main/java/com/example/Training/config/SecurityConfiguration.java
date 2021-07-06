@@ -1,6 +1,7 @@
 package com.example.Training.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -38,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers("/auth", "/auth/signup").permitAll()
+		http.csrf().disable().authorizeRequests().antMatchers("/auth", "/auth/signup", "/src/main/resources/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/posts", "/cities").permitAll().anyRequest().authenticated().and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.cors();
@@ -63,10 +64,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
+			
+			
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowedMethods("*")
-						.allowCredentials(true);
+				registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
 			}
 		};
 	}

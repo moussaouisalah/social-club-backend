@@ -12,5 +12,6 @@ import com.example.Training.entity.Post;
 public interface PostRepositoryPag extends PagingAndSortingRepository<Post, Integer> {
 	List<Post> findByClubId(Optional<Integer> ids,Pageable pg);
 	List<Post> findByUserId(Optional<Integer> ids,Pageable pg);
+	List<Post> findByClubIdIn(List<Integer> ids, Pageable pg);
 	//user_owner UserOwner
 }

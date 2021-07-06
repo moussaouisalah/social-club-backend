@@ -1,5 +1,7 @@
 package com.example.Training.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.example.Training.entity.Member;
 import com.example.Training.entity.Post;
 import com.example.Training.entity.User;
 import com.example.Training.repository.PostRepository;
@@ -85,15 +88,18 @@ public class PostService {
 			List<Post> pagedResult = postRepositoryPag.findByClubId(clubid,paging1);
 			return pagedResult;
 		}
-		
-		else {
-			
+		else if(userid.isPresent()) {
+			User user = userrepository.findById(userid.orElse(0)).orElse(null);
 			Pageable paging1 = PageRequest.of(pageNo, pageSize,Sort.by(Sort.Direction.DESC,"creationdate"));
-			List<Post> pagedResult = postRepositoryPag.findByUserId(userid,paging1);
+			List<Integer> clubIds = new ArrayList<Integer>();
+			for(Member member : user.getUser_members()) {
+				clubIds.add(member.getClub().getId());
+			}
+			List<Post> pagedResult = postRepositoryPag.findByClubIdIn(clubIds, paging1);
 			return pagedResult;
 			
 		}	
-		
+		return Collections.emptyList();
 	}
 	
 	

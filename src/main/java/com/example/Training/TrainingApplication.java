@@ -17,7 +17,7 @@ public class TrainingApplication implements WebMvcConfigurer{
 	public static void main(String[] args) {
 		SpringApplication.run(TrainingApplication.class, args);
 	}
-	String myExternalFilePath = "file:C:/Users/Saad/Downloads/Training/src/main/resources/uploads/";
+	String myExternalFilePath = "classpath:/uploads/";
 	@Override
 	        public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	            registry.addResourceHandler("/src/main/resources/uploads/**")
