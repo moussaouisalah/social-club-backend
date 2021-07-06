@@ -11,5 +11,6 @@ import com.example.Training.entity.User;
 public interface ClubRepository extends JpaRepository<Club, Integer>{
 
 	  List<Club> findByIdIn(Optional<List<Integer>> ids);
+	  List<Club> findByNameContaining(String name);
 
 }

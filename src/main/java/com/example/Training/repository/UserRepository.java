@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.example.Training.entity.Club;
 import com.example.Training.entity.User;
 
 
@@ -19,4 +20,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 	
 	
 	User findByFirstName(String first_name);
+	List<User> findByFirstNameContainingOrLastNameContaining(String firstName, String lastName);
+	//List<User> findByLastNameContaining(String lastName);
 }
